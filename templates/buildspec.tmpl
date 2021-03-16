@@ -1,0 +1,41 @@
+version: 0.2
+env:
+  variables:
+    application_name: ${repository_name}
+    dockerhub_user: ${dockerhub_user}
+    environment: ${environment}
+    image_repo: ${image_repo} 
+    image_repo_name: ${image_repo_name} 
+    proxy_name: ${proxy_name}
+  parameter-store:
+    dockerhub_password: "dpl-dockerhub-password"
+
+phases:
+  pre_build:
+    commands:
+      - echo "[ECHO] Running pre_build STEP at $(date)"
+      - git clone https://github.com/vcrini/aws-utilities --depth=1 utilities
+      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+      - docker login --username $dockerhub_user --password $dockerhub_password
+      - app_image_version=v`grep -Po '(?<=^version=).+' build.txt`
+      - app_repo=`utilities/ecr_image_check.sh $image_repo $application_name $app_image_version`
+      - app_image_version=`utilities/remove_snapshot.sh $app_image_version` 
+      - app_repo=$app_repo:$app_image_version
+      - docker pull $app_repo || true
+  build:
+    commands:
+      - docker build -t $app_repo --cache-from $app_repo . 
+
+  post_build:
+    commands:
+      - echo "[ECHO] Running post_build STEP at $(date)"
+      - echo "[ECHO] Docker push image"
+      - docker push $app_repo
+      - printf "paste following content in 'imagedefinitions.json' inside repository '%s' if not present\n" "$application_name-deploy" 
+      - printf '[{"name":"app","imageUri":"%s"}]' $app_repo | python -m json.tool
+artifacts:
+    files: 
+      - build.txt
+      - ecs-params.yml
+      - docker-compose.yml
+      - docker-compose.aws.yml
