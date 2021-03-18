@@ -179,7 +179,7 @@ locals {
   role_arn_task         = "${local.role_prefix}${var.role_arn_task_name}"
   role_arn_codebuild    = "${local.role_prefix}codebuild-dpl-codebuild-service-role"
   role_arn_codepipeline = "${local.role_prefix}${var.role_arn_codepipeline_name}"
-  role_arn_source       = "${local.role_prefix2}AssumeCodeCommitGucciDev"
+  role_arn_source       = "${local.role_prefix2}dpl-AssumeCodeCommitGucciDev"
   buildspec = templatefile("${path.module}/templates/buildspec.tmpl",
     {
       dockerhub_user        = var.dockerhub_user
