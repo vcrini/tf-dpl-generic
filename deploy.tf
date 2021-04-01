@@ -68,13 +68,12 @@ EOF
   tags   = var.tag
 }
 module "deploy" {
-  # source                  = "/Users/vcrini/Repositories/terraform-modules/deploy_x_application"
+  source                  = "/Users/vcrini/Repositories/terraform-modules/deploy_x_application"
   branch_name             = var.branch_name
   buildspec               = local.buildspec
   cluster_name            = var.aws_ecs_cluster
   codepipeline_bucket     = var.codepipeline_bucket
   deploy_environment      = var.deploy_environment
-  deploy_versions         = var.deploy_versions
   deployspec              = local.deployspec
   poll_for_source_changes = "false"
   repository_name         = local.repository_name
@@ -83,9 +82,9 @@ module "deploy" {
   role_arn_codepipeline   = local.role_arn_codepipeline
   role_arn_source         = local.role_arn_source
   s3_cache                = var.s3_cache
-  source                  = "git::https://bitbucket.org/valeri0/deploy_x_application?ref=0.3.1"
-  tags                    = var.tag
-  vm_depends_on           = [aws_cloudwatch_log_group.log]
+  # source                  = "git::https://bitbucket.org/valeri0/deploy_x_application?ref=0.3.1"
+  tags          = var.tag
+  vm_depends_on = [aws_cloudwatch_log_group.log]
 }
 
 resource "aws_cloudwatch_log_group" "log" {

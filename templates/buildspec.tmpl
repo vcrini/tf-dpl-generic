@@ -33,9 +33,13 @@ phases:
       - docker push $app_repo
       - printf "paste following content in 'imagedefinitions.json' inside repository '%s' if not present\n" "$application_name-deploy" 
       - printf '[{"name":"app","imageUri":"%s"}]' $app_repo | python -m json.tool
+      - printf 'app=%s' $app_repo > tag
+      - echo "[ECHO] creating tag"
+      - cat tag
 artifacts:
     files: 
       - build.txt
-      - ecs-params.yml
-      - docker-compose.yml
       - docker-compose.aws.yml
+      - docker-compose.yml
+      - ecs-params.yml
+      - tag
