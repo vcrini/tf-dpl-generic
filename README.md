@@ -2,7 +2,7 @@
 
 | Name | Version |
 |------|---------|
-| terraform | ~> 0.14.0 |
+| terraform | >= 0.15.0, < 0.16.0 |
 | aws | ~> 3.32.0 |
 
 ## Providers
@@ -62,3 +62,4 @@
 |------|-------------|
 | role\_arn | default role |
 | role\_arn2 | secondary role, used for cross account |
+

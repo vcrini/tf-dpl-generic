@@ -34,8 +34,6 @@ phases:
       - printf "paste following content in 'imagedefinitions.json' inside repository '%s' if not present\n" "$application_name-deploy" 
       - printf '[{"name":"app","imageUri":"%s"}]' $app_repo | python -m json.tool
       - printf 'app=%s' $app_repo > tag
-      - echo "[ECHO] creating tag"
-      - cat tag
 artifacts:
     files: 
       - build.txt

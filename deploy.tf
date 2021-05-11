@@ -1,24 +1,3 @@
-module "codecommit_service" {
-  count   = var.manage_repositories == "true" && var.enable_cross_account == "true" ? 1 : 0
-  enabled = var.manage_repositories == "true" && var.enable_cross_account == "true" ? "true" : "false"
-  name    = local.repository_name
-  source  = "git::https://bitbucket.org/valeri0/codecommit.git?ref=0.1.0"
-  #source = "/Users/vcrini/Repositories/terraform-modules/codecommit"
-  tags = var.tag_alt
-  providers = {
-    aws = aws.prod
-  }
-}
-module "codecommit_deploy" {
-  enabled = var.manage_repositories == "true" && var.deploy_versions == "true" && var.enable_cross_account == "true" ? "true" : "false"
-  name    = local.repository_name_deploy
-  source  = "git::https://bitbucket.org/valeri0/codecommit.git?ref=0.1.0"
-  #source = "/Users/vcrini/Repositories/terraform-modules/codecommit"
-  tags = var.tag_alt
-  providers = {
-    aws = aws.prod
-  }
-}
 module "ecr_immutable" {
   image_tag_mutability = "IMMUTABLE"
   name                 = [local.repository_name, "${local.repository_name}-proxy"]
