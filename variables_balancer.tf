@@ -12,7 +12,8 @@ variable "listener" {
   type        = map(any)
 }
 variable "ssl_certificate_arn_name" {
-  description = "ssl certificate used by load balancer"
+  default     = ""
+  description = "ssl certificate used by  listener if HTTPS"
   type        = string
 }
 variable "target_group" {

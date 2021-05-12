@@ -49,7 +49,7 @@
 | s3\_cache | s3 bucket cache name | `string` | n/a | yes |
 | sbt\_image\_version | sbt version used | `string` | `"0.1"` | no |
 | sbt\_opts | parameters needed to compile without errors | `string` | `"-XX:+CMSClassUnloadingEnabled -Xmx2G -Xss8M"` | no |
-| ssl\_certificate\_arn\_name | ssl certificate used by load balancer | `string` | n/a | yes |
+| ssl\_certificate\_arn\_name | ssl certificate used by  listener if HTTPS | `string` | `""` | no |
 | tag | tag to be added | `map(any)` | <pre>{<br>  "Project": "FactoryDataHub"<br>}</pre> | no |
 | tag\_alt | tag to be added with the alternative account a.k.a prod one | `map(any)` | <pre>{<br>  "Project": "FactoryDataHub"<br>}</pre> | no |
 | target\_group | map representing target group configuration | `map(any)` | n/a | yes |
