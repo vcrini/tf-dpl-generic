@@ -24,7 +24,9 @@ phases:
       - docker pull $app_repo || true
   build:
     commands:
-      - docker build -t $app_repo --cache-from $app_repo . 
+      - CMD="docker build -t $app_repo --build-arg ENV=$environment --cache-from $app_repo ."
+      - echo $CMD
+      - exec $CMD
 
   post_build:
     commands:
