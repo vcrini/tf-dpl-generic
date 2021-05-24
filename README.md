@@ -15,9 +15,20 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| APP\_DEMANDFEATURES | environment variable to use as dynamic hostname in nginx | `string` | `""` | no |
-| BACKEND | environment variable to use as dynamic hostname in nginx | `string` | `""` | no |
-| FRONTEND | environment variable to use as dynamic hostname in nginx | `string` | `""` | no |
+| APPDEMO\_BACKEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
+| APPDEMO\_FRONTEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
+| APP\_DEMANDFEATURES | environment variable to use as dynamic hostname for homonym component (obsolete) | `string` | `""` | no |
+| AUTHENTICATION\_ADMINFRONTEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
+| AUTHENTICATION\_BACKEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
+| BACKEND | environment variable to use as dynamic hostname for homonym component (obsolete) | `string` | `""` | no |
+| CDN | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
+| DEMAND\_PRODUCT\_FEATURES\_BACKEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
+| DEMAND\_PRODUCT\_FEATURES\_FRONTEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
+| FRONTEND | environment variable to use as dynamic hostname for homonym component (obsolete) | `string` | `""` | no |
+| MAINFRONT\_FRONTEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
+| NPM\_REGISTRY | environment variable to use as dynamic hostname in nginx and from services that need to access npn registry to install packages | `string` | `""` | no |
+| STORAGE\_BACKEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
+| USERPREFERENCES\_BACKEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | alarm\_arn | SNS topic to alert when balancer fails | `string` | n/a | yes |
 | aws\_account\_id2 | needed for creating role to create infrastructure for codecommit in prod enviroment | `string` | `"092467779203"` | no |
 | aws\_desired\_count | how many tasks run | `number` | `1` | no |

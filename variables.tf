@@ -142,20 +142,75 @@ variable "tag_alt" {
 }
 variable "APP_DEMANDFEATURES" {
   default     = ""
-  description = "environment variable to use as dynamic hostname in nginx"
+  description = "environment variable to use as dynamic hostname for homonym component (obsolete)"
   type        = string
 }
 variable "BACKEND" {
   default     = ""
-  description = "environment variable to use as dynamic hostname in nginx"
+  description = "environment variable to use as dynamic hostname for homonym component (obsolete)"
   type        = string
 }
 variable "FRONTEND" {
   default     = ""
-  description = "environment variable to use as dynamic hostname in nginx"
+  description = "environment variable to use as dynamic hostname for homonym component (obsolete)"
+  type        = string
+}
+variable "NPM_REGISTRY" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname in nginx and from services that need to access npn registry to install packages"
   type        = string
 }
 
+variable "APPDEMO_BACKEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
+variable "APPDEMO_FRONTEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
+variable "AUTHENTICATION_ADMINFRONTEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
+variable "AUTHENTICATION_BACKEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
+variable "CDN" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
+variable "DEMAND_PRODUCT_FEATURES_BACKEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
+variable "DEMAND_PRODUCT_FEATURES_FRONTEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
+variable "MAINFRONT_FRONTEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
+variable "STORAGE_BACKEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
+variable "USERPREFERENCES_BACKEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
 data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 locals {
@@ -184,6 +239,7 @@ locals {
     {
       dockerhub_user        = var.dockerhub_user
       environment           = var.deploy_environment
+      npm_registry          = var.NPM_REGISTRY
       image_repo            = local.image_repo
       image_repo_name       = var.image_repo_name
       proxy_name            = local.proxy_name
@@ -217,10 +273,22 @@ locals {
       repository_name                = local.repository_name
       sbt_image_version              = var.sbt_image_version
       task_role_arn                  = local.role_arn_task
-      #env variables
+      #env variables demo
       FRONTEND           = var.FRONTEND
       BACKEND            = var.BACKEND
       APP_DEMANDFEATURES = var.APP_DEMANDFEATURES
+      #env variables final
+      APPDEMO_BACKEND                  = var.APPDEMO_BACKEND
+      APPDEMO_FRONTEND                 = var.APPDEMO_FRONTEND
+      AUTHENTICATION_ADMINFRONTEND     = var.AUTHENTICATION_ADMINFRONTEND
+      AUTHENTICATION_BACKEND           = var.AUTHENTICATION_BACKEND
+      CDN                              = var.CDN
+      DEMAND_PRODUCT_FEATURES_BACKEND  = var.DEMAND_PRODUCT_FEATURES_BACKEND
+      DEMAND_PRODUCT_FEATURES_FRONTEND = var.DEMAND_PRODUCT_FEATURES_FRONTEND
+      MAINFRONT_FRONTEND               = var.MAINFRONT_FRONTEND
+      STORAGE_BACKEND                  = var.STORAGE_BACKEND
+      USERPREFERENCES_BACKEND          = var.USERPREFERENCES_BACKEND
+
     }
   )
   ecr_repository_list          = [local.repository_name]

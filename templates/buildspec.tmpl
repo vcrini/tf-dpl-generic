@@ -6,6 +6,7 @@ env:
     environment: ${environment}
     image_repo: ${image_repo} 
     image_repo_name: ${image_repo_name} 
+    npm_registry: ${npm_registry}
     proxy_name: ${proxy_name}
   parameter-store:
     dockerhub_password: "dpl-dockerhub-password"
@@ -24,7 +25,7 @@ phases:
       - docker pull $app_repo || true
   build:
     commands:
-      - CMD="docker build -t $app_repo --build-arg ENV=$environment --cache-from $app_repo ."
+      - CMD="docker build -t $app_repo --build-arg ENV=$environment  --build-arg NPM_REGISTRY=$npm_registry --cache-from $app_repo ."
       - echo $CMD
       - exec $CMD
 
