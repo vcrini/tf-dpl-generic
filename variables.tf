@@ -21,6 +21,11 @@ variable "aws_desired_count" {
   description = "how many tasks run"
   type        = number
 }
+variable "additional_ecr_repos" {
+  default     = []
+  description = "used to create ECR infrastructure if there is more than one"
+  type        = list(any)
+}
 variable "dockerhub_user" {
   description = "used to allow more than 100 pull in 6 hours (should be 200) see https://docs.docker.com/docker-hub/download-rate-limit/"
   type        = string
@@ -224,7 +229,9 @@ locals {
   role_prefix2 = "arn:aws:iam::${var.aws_account_id2}:role/"
 }
 locals {
-  arn_target            = "arn:aws:events:${local.region}:${local.account_id}:event-bus/default"
+  arn_target       = "arn:aws:events:${local.region}:${local.account_id}:event-bus/default"
+  ecr_repositories = compact(concat([local.repository_name], formatlist("%s-%s", local.repository_name, var.additional_ecr_repos)))
+
   image_repo            = "${local.account_id}.dkr.ecr.${local.region}.amazonaws.com/"
   key                   = "terraform/tfstate/$(local.repository_name).tfstate"
   role_arn              = "${local.role_prefix}${var.deploy_role}"

@@ -1,6 +1,6 @@
 module "ecr_immutable" {
   image_tag_mutability = "IMMUTABLE"
-  name                 = [local.repository_name, "${local.repository_name}-proxy"]
+  name                 = local.ecr_repositories
   policy               = <<EOF
 {
     "rules": [
@@ -24,7 +24,7 @@ EOF
   tags   = var.tag
 }
 module "ecr_mutable" {
-  name   = ["${local.repository_name}-snapshot", "${local.repository_name}-proxy-snapshot"]
+  name   = formatlist("%s-%s", local.ecr_repositories, "snapshot")
   policy = <<EOF
 {
     "rules": [

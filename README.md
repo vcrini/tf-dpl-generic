@@ -29,6 +29,7 @@
 | NPM\_REGISTRY | environment variable to use as dynamic hostname in nginx and from services that need to access npn registry to install packages | `string` | `""` | no |
 | STORAGE\_BACKEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | USERPREFERENCES\_BACKEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
+| additional\_ecr\_repos | used to create ECR infrastructure if there is more than one | `list(any)` | `[]` | no |
 | alarm\_arn | SNS topic to alert when balancer fails | `string` | n/a | yes |
 | aws\_account\_id2 | needed for creating role to create infrastructure for codecommit in prod enviroment | `string` | `"092467779203"` | no |
 | aws\_desired\_count | how many tasks run | `number` | `1` | no |

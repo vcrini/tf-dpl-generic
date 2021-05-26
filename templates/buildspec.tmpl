@@ -19,23 +19,49 @@ phases:
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
       - docker login --username $dockerhub_user --password $dockerhub_password
       - app_image_version=v`grep -Po '(?<=^version=).+' build.txt`
+      - app1_image_version=$app_image_version
       - app_repo=`utilities/ecr_image_check.sh $image_repo $application_name $app_image_version`
       - app_image_version=`utilities/remove_snapshot.sh $app_image_version` 
       - app_repo=$app_repo:$app_image_version
       - docker pull $app_repo || true
+      - is_app1=`grep -c 'app1' docker-compose.yml || true`
+      - |-
+        if [ "$is_app1" -gt 0 ]; then
+          echo "app1 is present"
+          app1_repo=`utilities/ecr_image_check.sh $image_repo $application_name-app1 $app1_image_version`
+          app1_image_version=`utilities/remove_snapshot.sh $app1_image_version` 
+          app1_repo=$app1_repo:$app1_image_version
+          docker pull $app1_repo || true
+        fi
   build:
     commands:
       - CMD="docker build -t $app_repo --build-arg ENV=$environment  --build-arg NPM_REGISTRY=$npm_registry --cache-from $app_repo ."
       - echo $CMD
       - exec $CMD
+      - |-
+        if [ "$is_app1" -gt 0 ]; then
+          echo "app1 building"
+          CMD="docker build -t $app1_repo --build-arg ENV=$environment  --build-arg NPM_REGISTRY=$npm_registry --cache-from $app1_repo -f dockerfile-app1 ."
+          echo $CMD
+          exec $CMD
+        fi
 
   post_build:
     commands:
       - echo "[ECHO] Running post_build STEP at $(date)"
       - echo "[ECHO] Docker push image"
       - docker push $app_repo
-      - printf "paste following content in 'imagedefinitions.json' inside repository '%s' if not present\n" "$application_name-deploy" 
-      - printf '[{"name":"app","imageUri":"%s"}]' $app_repo | python -m json.tool
+      - help1="paste following content in 'imagedefinitions.json' inside repository '%s' if not present\n" 
+      - |-
+        if [ "$is_app1" -gt 0 ]; then
+          echo "app1 pushing"
+          docker push $app1_repo
+          echo $help1
+          printf '[{"name":"app","imageUri":"%s"},{"name":"app1","imageUri":"%s"}]' $app_repo $app1_repo | python -m json.tool
+        else
+          echo $help1
+          printf '[{"name":"app","imageUri":"%s"}]' $app_repo | python -m json.tool
+        fi
       - printf 'app=%s' $app_repo > tag
 artifacts:
     files: 
