@@ -2,7 +2,7 @@
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.15.0, < 0.16.0 |
+| terraform | >= 0.15.0, < 1.0.2 |
 | aws | ~> 3.32.0 |
 
 ## Providers
