@@ -43,6 +43,14 @@ variable "codepipeline_bucket" {
   description = "bucketname used from pipeline to pass configurations needed for codebuild"
   type        = string
 }
+variable "codeartifact_repository" {
+  description = "repository name for codeartifact"
+  type        = string
+}
+variable "codeartifact_domain" {
+  description = "domain name for codeartifact"
+  type        = string
+}
 variable "deploy_environment" {
   description = "test or prod environment"
   type        = string
@@ -244,18 +252,21 @@ locals {
   role_arn_source       = "${local.role_prefix2}dpl-AssumeCodeCommitGucciDev"
   buildspec = templatefile("${path.module}/templates/buildspec.tmpl",
     {
-      dockerhub_user        = var.dockerhub_user
-      environment           = var.deploy_environment
-      npm_registry          = var.NPM_REGISTRY
-      image_repo            = local.image_repo
-      image_repo_name       = var.image_repo_name
-      proxy_name            = local.proxy_name
-      repository_name       = local.repository_name
-      s3_aws_access_key_id  = var.s3_aws_access_key_id
-      s3_aws_default_region = local.region
-      s3_aws_role_arn       = var.s3_aws_role_arn
-      sbt_image_version     = var.sbt_image_version
-      sbt_opts              = var.sbt_opts
+      account_id              = local.account_id
+      codeartifact_repository = var.codeartifact_repository
+      codeartifact_domain     = var.codeartifact_domain
+      dockerhub_user          = var.dockerhub_user
+      environment             = var.deploy_environment
+      npm_registry            = var.NPM_REGISTRY
+      image_repo              = local.image_repo
+      image_repo_name         = var.image_repo_name
+      proxy_name              = local.proxy_name
+      repository_name         = local.repository_name
+      s3_aws_access_key_id    = var.s3_aws_access_key_id
+      s3_aws_default_region   = local.region
+      s3_aws_role_arn         = var.s3_aws_role_arn
+      sbt_image_version       = var.sbt_image_version
+      sbt_opts                = var.sbt_opts
     }
   )
   deploy2_name = local.repository_name_deploy

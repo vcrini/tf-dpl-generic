@@ -2,7 +2,10 @@ version: 0.2
 env:
   variables:
     application_name: ${repository_name}
+    codeartifact_repository: ${codeartifact_repository}
+    codeartifact_domain: ${codeartifact_domain}
     dockerhub_user: ${dockerhub_user}
+    domain_owner: ${account_id}
     environment: ${environment}
     image_repo: ${image_repo} 
     image_repo_name: ${image_repo_name} 
@@ -33,9 +36,15 @@ phases:
           app1_repo=$app1_repo:$app1_image_version
           docker pull $app1_repo || true
         fi
+      - pip3 install awscli --upgrade --user
+      - CMD0="aws codeartifact login --tool npm --domain $codeartifact_domain --domain-owner $domain_owner --repository $codeartifact_repository"
+      - echo $CMD0
+      - exec $CMD0
+      - cat ~/.npmrc  
   build:
     commands:
-      - CMD="docker build -t $app_repo --build-arg ENV=$environment  --build-arg NPM_REGISTRY=$npm_registry --cache-from $app_repo ."
+      - cp ~/.npmrc .
+      - CMD="docker build -t $app_repo --build-arg ENV=$environment   --cache-from $app_repo ."
       - echo $CMD
       - exec $CMD
       - |-

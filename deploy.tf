@@ -54,6 +54,7 @@ module "deploy" {
   codepipeline_bucket     = var.codepipeline_bucket
   deploy_environment      = var.deploy_environment
   deployspec              = local.deployspec
+  image                   = "aws/codebuild/amazonlinux2-x86_64-standard:3.0"
   poll_for_source_changes = "false"
   repository_name         = local.repository_name
   role_arn                = local.role_arn
@@ -61,8 +62,8 @@ module "deploy" {
   role_arn_codepipeline   = local.role_arn_codepipeline
   role_arn_source         = local.role_arn_source
   s3_cache                = var.s3_cache
-  # source                  = "/Users/vcrini/Repositories/terraform-modules/deploy_x_application"
-  source = "git::https://bitbucket.org/valeri0/deploy_x_application?ref=0.6.0"
+  #source                  = "/Users/vcrini/Repositories/terraform-modules/deploy_x_application"
+  source = "git::https://bitbucket.org/valeri0/deploy_x_application?ref=0.7.0"
   tags   = var.tag
 }
 

@@ -37,6 +37,8 @@
 | aws\_security\_group | one or more security group used by containers | `string` | n/a | yes |
 | aws\_subnet | subnet where containers run | `string` | n/a | yes |
 | branch\_name | branch used from codecommit | `string` | n/a | yes |
+| codeartifact\_domain | domain name for codeartifact | `string` | n/a | yes |
+| codeartifact\_repository | repository name for codeartifact | `string` | n/a | yes |
 | codepipeline\_bucket | bucketname used from pipeline to pass configurations needed for codebuild | `string` | n/a | yes |
 | deploy\_environment | test or prod environment | `string` | n/a | yes |
 | deploy\_role | role used to deploy | `string` | `"dpl-admin-role"` | no |
