@@ -51,6 +51,10 @@ variable "codeartifact_domain" {
   description = "domain name for codeartifact"
   type        = string
 }
+variable "codeartifact_account_id" {
+  description = "domain name for codeartifact"
+  type        = string
+}
 variable "deploy_environment" {
   description = "test or prod environment"
   type        = string
@@ -252,7 +256,7 @@ locals {
   role_arn_source       = "${local.role_prefix2}dpl-AssumeCodeCommitGucciDev"
   buildspec = templatefile("${path.module}/templates/buildspec.tmpl",
     {
-      account_id              = local.account_id
+      codeartifact_account_id = var.codeartifact_account_id
       codeartifact_repository = var.codeartifact_repository
       codeartifact_domain     = var.codeartifact_domain
       dockerhub_user          = var.dockerhub_user
