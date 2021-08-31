@@ -228,6 +228,54 @@ variable "USERPREFERENCES_BACKEND" {
   description = "environment variable to use as dynamic hostname for homonym component"
   type        = string
 }
+variable "SEASONALITY_BACKEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
+
+variable "SEASONALITY_FRONTEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
+variable "PLANNINGCONSOLE_BACKEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
+
+variable "PLANNINGCONSOLE_FRONTEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
+
+
+variable "FORECAST_BACKEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
+
+variable "FORECAST_FRONTEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
+
+variable "KERINGAI_BACKEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
+
+variable "KERINGAI_FRONTEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
+
 data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 locals {
@@ -310,7 +358,14 @@ locals {
       MAINFRONT_FRONTEND               = var.MAINFRONT_FRONTEND
       STORAGE_BACKEND                  = var.STORAGE_BACKEND
       USERPREFERENCES_BACKEND          = var.USERPREFERENCES_BACKEND
-
+      SEASONALITY_BACKEND              = var.SEASONALITY_BACKEND
+      SEASONALITY_FRONTEND             = var.SEASONALITY_FRONTEND
+      FORECAST_BACKEND                 = var.FORECAST_BACKEND
+      FORECAST_FRONTEND                = var.FORECAST_FRONTEND
+      KERINGAI_BACKEND                 = var.KERINGAI_BACKEND
+      KERINGAI_FRONTEND                = var.KERINGAI_FRONTEND
+      PLANNINGCONSOLE_BACKEND          = var.PLANNINGCONSOLE_BACKEND
+      PLANNINGCONSOLE_FRONTEND         = var.PLANNINGCONSOLE_FRONTEND
     }
   )
   ecr_repository_list          = [local.repository_name]
