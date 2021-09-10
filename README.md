@@ -31,8 +31,6 @@
 | KERINGAI\_FRONTEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | MAINFRONT\_FRONTEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | NPM\_REGISTRY | environment variable to use as dynamic hostname in nginx and from services that need to access npn registry to install packages | `string` | `""` | no |
-| PLANNINGCONSOLE\_BACKEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
-| PLANNINGCONSOLE\_FRONTEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | SEASONALITY\_BACKEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | SEASONALITY\_FRONTEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | STORAGE\_BACKEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |

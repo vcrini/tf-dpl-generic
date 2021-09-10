@@ -239,19 +239,6 @@ variable "SEASONALITY_FRONTEND" {
   description = "environment variable to use as dynamic hostname for homonym component"
   type        = string
 }
-variable "PLANNINGCONSOLE_BACKEND" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component"
-  type        = string
-}
-
-variable "PLANNINGCONSOLE_FRONTEND" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component"
-  type        = string
-}
-
-
 variable "FORECAST_BACKEND" {
   default     = ""
   description = "environment variable to use as dynamic hostname for homonym component"
@@ -364,8 +351,6 @@ locals {
       FORECAST_FRONTEND                = var.FORECAST_FRONTEND
       KERINGAI_BACKEND                 = var.KERINGAI_BACKEND
       KERINGAI_FRONTEND                = var.KERINGAI_FRONTEND
-      PLANNINGCONSOLE_BACKEND          = var.PLANNINGCONSOLE_BACKEND
-      PLANNINGCONSOLE_FRONTEND         = var.PLANNINGCONSOLE_FRONTEND
     }
   )
   ecr_repository_list          = [local.repository_name]
