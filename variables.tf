@@ -172,11 +172,6 @@ variable "FRONTEND" {
   description = "environment variable to use as dynamic hostname for homonym component (obsolete)"
   type        = string
 }
-variable "NPM_REGISTRY" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname in nginx and from services that need to access npn registry to install packages"
-  type        = string
-}
 
 variable "APPDEMO_BACKEND" {
   default     = ""
@@ -316,7 +311,6 @@ locals {
       codeartifact_domain     = var.codeartifact_domain
       dockerhub_user          = var.dockerhub_user
       environment             = var.deploy_environment
-      npm_registry            = var.NPM_REGISTRY
       image_repo              = local.image_repo
       image_repo_name         = var.image_repo_name
       proxy_name              = local.proxy_name

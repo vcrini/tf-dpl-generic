@@ -2,7 +2,7 @@
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.15.0, < 2.0 |
+| terraform | >= 0.14.0, < 2.0 |
 | aws | ~> 3.32.0 |
 
 ## Providers
@@ -32,7 +32,6 @@
 | KERINGAI\_BACKEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | KERINGAI\_FRONTEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | MAINFRONT\_FRONTEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
-| NPM\_REGISTRY | environment variable to use as dynamic hostname in nginx and from services that need to access npn registry to install packages | `string` | `""` | no |
 | SEASONALITY\_BACKEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | SEASONALITY\_FRONTEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | SO99\_BACKEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
