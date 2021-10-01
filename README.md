@@ -2,7 +2,7 @@
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.15.0, < 1.0.2 |
+| terraform | >= 0.15.0, < 2.0 |
 | aws | ~> 3.32.0 |
 
 ## Providers
@@ -21,6 +21,8 @@
 | AUTHENTICATION\_ADMINFRONTEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | AUTHENTICATION\_BACKEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | BACKEND | environment variable to use as dynamic hostname for homonym component (obsolete) | `string` | `""` | no |
+| BASEDATATABLES\_BACKEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
+| BASEDATATABLES\_FRONTEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | CDN | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | DEMAND\_PRODUCT\_FEATURES\_BACKEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | DEMAND\_PRODUCT\_FEATURES\_FRONTEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
@@ -33,6 +35,8 @@
 | NPM\_REGISTRY | environment variable to use as dynamic hostname in nginx and from services that need to access npn registry to install packages | `string` | `""` | no |
 | SEASONALITY\_BACKEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | SEASONALITY\_FRONTEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
+| SO99\_BACKEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
+| SO99\_FRONTEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | STORAGE\_BACKEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | USERPREFERENCES\_BACKEND | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | additional\_ecr\_repos | used to create ECR infrastructure if there is more than one | `list(any)` | `[]` | no |

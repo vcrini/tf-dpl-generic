@@ -198,6 +198,16 @@ variable "AUTHENTICATION_BACKEND" {
   description = "environment variable to use as dynamic hostname for homonym component"
   type        = string
 }
+variable "BASEDATATABLES_BACKEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
+variable "BASEDATATABLES_FRONTEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
 variable "CDN" {
   default     = ""
   description = "environment variable to use as dynamic hostname for homonym component"
@@ -263,6 +273,16 @@ variable "KERINGAI_FRONTEND" {
   type        = string
 }
 
+variable "SO99_BACKEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
+variable "SO99_FRONTEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
 data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 locals {
@@ -351,6 +371,11 @@ locals {
       FORECAST_FRONTEND                = var.FORECAST_FRONTEND
       KERINGAI_BACKEND                 = var.KERINGAI_BACKEND
       KERINGAI_FRONTEND                = var.KERINGAI_FRONTEND
+      SO99_BACKEND                     = var.SO99_BACKEND
+      SO99_FRONTEND                    = var.SO99_FRONTEND
+      BASEDATATABLES_BACKEND           = var.BASEDATATABLES_BACKEND
+      BASEDATATABLES_FRONTEND          = var.BASEDATATABLES_FRONTEND
+
     }
   )
   ecr_repository_list          = [local.repository_name]
