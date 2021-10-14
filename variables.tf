@@ -157,127 +157,6 @@ variable "tag_alt" {
   description = "tag to be added with the alternative account a.k.a prod one"
   type        = map(any)
 }
-variable "APP_DEMANDFEATURES" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component (obsolete)"
-  type        = string
-}
-variable "BACKEND" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component (obsolete)"
-  type        = string
-}
-variable "FRONTEND" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component (obsolete)"
-  type        = string
-}
-
-variable "APPDEMO_BACKEND" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component"
-  type        = string
-}
-variable "APPDEMO_FRONTEND" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component"
-  type        = string
-}
-variable "AUTHENTICATION_ADMINFRONTEND" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component"
-  type        = string
-}
-variable "AUTHENTICATION_BACKEND" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component"
-  type        = string
-}
-variable "BASEDATATABLES_BACKEND" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component"
-  type        = string
-}
-variable "BASEDATATABLES_FRONTEND" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component"
-  type        = string
-}
-variable "CDN" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component"
-  type        = string
-}
-variable "DEMAND_PRODUCT_FEATURES_BACKEND" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component"
-  type        = string
-}
-variable "DEMAND_PRODUCT_FEATURES_FRONTEND" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component"
-  type        = string
-}
-variable "MAINFRONT_FRONTEND" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component"
-  type        = string
-}
-variable "STORAGE_BACKEND" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component"
-  type        = string
-}
-variable "USERPREFERENCES_BACKEND" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component"
-  type        = string
-}
-variable "SEASONALITY_BACKEND" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component"
-  type        = string
-}
-
-variable "SEASONALITY_FRONTEND" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component"
-  type        = string
-}
-variable "FORECAST_BACKEND" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component"
-  type        = string
-}
-
-variable "FORECAST_FRONTEND" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component"
-  type        = string
-}
-
-variable "KERINGAI_BACKEND" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component"
-  type        = string
-}
-
-variable "KERINGAI_FRONTEND" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component"
-  type        = string
-}
-
-variable "SO99_BACKEND" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component"
-  type        = string
-}
-variable "SO99_FRONTEND" {
-  default     = ""
-  description = "environment variable to use as dynamic hostname for homonym component"
-  type        = string
-}
 data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 locals {
@@ -325,50 +204,48 @@ locals {
   deploy2_name = local.repository_name_deploy
   deployspec = templatefile("${path.module}/templates/deployspec.tmpl",
     {
-      aws_container_name             = var.target_group["app"]["container"]
-      aws_container_port             = var.target_group["app"]["destination_port"]
-      aws_desired_count              = var.aws_desired_count
-      aws_ecs_cluster                = var.aws_ecs_cluster
-      aws_service_name               = local.repository_name
-      aws_security_group             = var.aws_security_group
-      aws_stream_prefix              = local.repository_name
-      aws_subnet                     = var.aws_subnet
-      aws_target_group_arn           = module.balancer.output_lb_target_group["app"].arn
-      deployment_max_percent         = var.deployment_max_percent
-      deployment_min_healthy_percent = var.deployment_min_healthy_percent
-      ecs_image_pull_behavior        = var.ecs_image_pull_behavior
-      environment                    = var.deploy_environment
-      image_repo                     = local.image_repo
-      image_repo_name                = var.image_repo_name
-      proxy_name                     = local.proxy_name
-      repository_name                = local.repository_name
-      sbt_image_version              = var.sbt_image_version
-      task_role_arn                  = local.role_arn_task
-      #env variables demo
-      FRONTEND           = var.FRONTEND
-      BACKEND            = var.BACKEND
-      APP_DEMANDFEATURES = var.APP_DEMANDFEATURES
-      #env variables final
+      aws_container_name               = var.target_group["app"]["container"]
+      aws_container_port               = var.target_group["app"]["destination_port"]
+      aws_desired_count                = var.aws_desired_count
+      aws_ecs_cluster                  = var.aws_ecs_cluster
+      aws_service_name                 = local.repository_name
+      aws_security_group               = var.aws_security_group
+      aws_stream_prefix                = local.repository_name
+      aws_subnet                       = var.aws_subnet
+      aws_target_group_arn             = module.balancer.output_lb_target_group["app"].arn
+      deployment_max_percent           = var.deployment_max_percent
+      deployment_min_healthy_percent   = var.deployment_min_healthy_percent
+      ecs_image_pull_behavior          = var.ecs_image_pull_behavior
+      environment                      = var.deploy_environment
+      image_repo                       = local.image_repo
+      image_repo_name                  = var.image_repo_name
+      proxy_name                       = local.proxy_name
+      repository_name                  = local.repository_name
+      sbt_image_version                = var.sbt_image_version
+      task_role_arn                    = local.role_arn_task
       APPDEMO_BACKEND                  = var.APPDEMO_BACKEND
       APPDEMO_FRONTEND                 = var.APPDEMO_FRONTEND
       AUTHENTICATION_ADMINFRONTEND     = var.AUTHENTICATION_ADMINFRONTEND
       AUTHENTICATION_BACKEND           = var.AUTHENTICATION_BACKEND
+      BASEDATATABLES_BACKEND           = var.BASEDATATABLES_BACKEND
+      BASEDATATABLES_FRONTEND          = var.BASEDATATABLES_FRONTEND
       CDN                              = var.CDN
+      CRON_BACKEND                     = var.CRON_BACKEND
       DEMAND_PRODUCT_FEATURES_BACKEND  = var.DEMAND_PRODUCT_FEATURES_BACKEND
       DEMAND_PRODUCT_FEATURES_FRONTEND = var.DEMAND_PRODUCT_FEATURES_FRONTEND
-      MAINFRONT_FRONTEND               = var.MAINFRONT_FRONTEND
-      STORAGE_BACKEND                  = var.STORAGE_BACKEND
-      USERPREFERENCES_BACKEND          = var.USERPREFERENCES_BACKEND
-      SEASONALITY_BACKEND              = var.SEASONALITY_BACKEND
-      SEASONALITY_FRONTEND             = var.SEASONALITY_FRONTEND
       FORECAST_BACKEND                 = var.FORECAST_BACKEND
       FORECAST_FRONTEND                = var.FORECAST_FRONTEND
       KERINGAI_BACKEND                 = var.KERINGAI_BACKEND
       KERINGAI_FRONTEND                = var.KERINGAI_FRONTEND
+      MAINFRONT_FRONTEND               = var.MAINFRONT_FRONTEND
+      SALESWINDOWS_BACKEND             = var.SALESWINDOWS_BACKEND
+      SALESWINDOWS_FRONTEND            = var.SALESWINDOWS_FRONTEND
+      SEASONALITY_BACKEND              = var.SEASONALITY_BACKEND
+      SEASONALITY_FRONTEND             = var.SEASONALITY_FRONTEND
       SO99_BACKEND                     = var.SO99_BACKEND
       SO99_FRONTEND                    = var.SO99_FRONTEND
-      BASEDATATABLES_BACKEND           = var.BASEDATATABLES_BACKEND
-      BASEDATATABLES_FRONTEND          = var.BASEDATATABLES_FRONTEND
+      STORAGE_BACKEND                  = var.STORAGE_BACKEND
+      USERPREFERENCES_BACKEND          = var.USERPREFERENCES_BACKEND
 
     }
   )
