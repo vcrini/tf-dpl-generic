@@ -76,12 +76,13 @@ resource "aws_cloudwatch_log_group" "log" {
 
 module "balancer" {
   alarm_arn            = var.alarm_arn
+  default_cname        = var.default_cname
   repository_name      = local.repository_name
   deregistration_delay = 120
   listener             = var.listener
   lb_name              = var.lb_name
-  # source = "/Users/vcrini/Repositories/terraform-modules/load_balancer"
-  source              = "git::https://bitbucket.org/valeri0/load_balancer.git?ref=0.4.0"
+  # source = "/Users/vcrini/Repositories/terraform-modules//load_balancer"
+  source              = "git::https://bitbucket.org/valeri0/load_balancer.git//?ref=0.6.0"
   ssl_certificate_arn = local.ssl_certificate_arn
   tags                = var.tag
   target_group        = var.target_group

@@ -15,7 +15,7 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_balancer"></a> [balancer](#module\_balancer) | git::https://bitbucket.org/valeri0/load_balancer.git | 0.4.0 |
+| <a name="module_balancer"></a> [balancer](#module\_balancer) | git::https://bitbucket.org/valeri0/load_balancer.git// | 0.6.0 |
 | <a name="module_deploy"></a> [deploy](#module\_deploy) | git::https://bitbucket.org/valeri0/deploy_x_application | 0.7.0 |
 | <a name="module_ecr_immutable"></a> [ecr\_immutable](#module\_ecr\_immutable) | git::https://bitbucket.org/valeri0/ecr.git | 0.2.0 |
 | <a name="module_ecr_mutable"></a> [ecr\_mutable](#module\_ecr\_mutable) | git::https://bitbucket.org/valeri0/ecr.git | 0.2.0 |
@@ -67,6 +67,7 @@
 | <a name="input_codeartifact_domain"></a> [codeartifact\_domain](#input\_codeartifact\_domain) | domain name for codeartifact | `string` | n/a | yes |
 | <a name="input_codeartifact_repository"></a> [codeartifact\_repository](#input\_codeartifact\_repository) | repository name for codeartifact | `string` | n/a | yes |
 | <a name="input_codepipeline_bucket"></a> [codepipeline\_bucket](#input\_codepipeline\_bucket) | bucketname used from pipeline to pass configurations needed for codebuild | `string` | n/a | yes |
+| <a name="input_default_cname"></a> [default\_cname](#input\_default\_cname) | cname to use if not specified insied target\_groups | `string` | n/a | yes |
 | <a name="input_deploy_environment"></a> [deploy\_environment](#input\_deploy\_environment) | test or prod environment | `string` | n/a | yes |
 | <a name="input_deploy_role"></a> [deploy\_role](#input\_deploy\_role) | role used to deploy | `string` | `"dpl-admin-role"` | no |
 | <a name="input_deploy_versions"></a> [deploy\_versions](#input\_deploy\_versions) | enables deploying specific versions through dedicated pipeline | `string` | `true` | no |

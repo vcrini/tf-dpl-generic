@@ -3,6 +3,11 @@ variable "alarm_arn" {
   type        = string
   description = "SNS topic to alert when balancer fails"
 }
+variable "default_cname" {
+  type        = string
+  description = "cname to use if not specified insied target_groups"
+}
+
 variable "lb_name" {
   description = "balancer name"
   type        = string
