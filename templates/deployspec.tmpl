@@ -71,7 +71,7 @@ phases:
   build:
     commands:
       - echo "[ECHO] Running using sbt publish to compile STEP at $(date)"
-      - git clone https://github.com/vcrini/aws-utilities --depth=1 utilities
+      - git clone https://github.com/vcrini/aws-utilities  -b 1.0   --depth=1 utilities
       - app_image_version=v`grep -Po '(?<=^version=).+' build.txt`
       - app1_image_version=$app_image_version
       - app_repo=`utilities/ecr_image_check.sh $image_repo $application_name $app_image_version skip_ecr_check`

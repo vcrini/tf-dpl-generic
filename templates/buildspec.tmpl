@@ -17,7 +17,7 @@ phases:
   pre_build:
     commands:
       - echo "[ECHO] Running pre_build STEP at $(date)"
-      - git clone https://github.com/vcrini/aws-utilities --depth=1 utilities
+      - git clone https://github.com/vcrini/aws-utilities  -b 1.0   --depth=1 utilities
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
       - docker login --username $dockerhub_user --password $dockerhub_password
       - app_image_version=v`grep -Po '(?<=^version=).+' build.txt`
