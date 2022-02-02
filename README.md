@@ -41,6 +41,8 @@
 | <a name="input_CDN"></a> [CDN](#input\_CDN) | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | <a name="input_CRON_ADMINFRONTEND"></a> [CRON\_ADMINFRONTEND](#input\_CRON\_ADMINFRONTEND) | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | <a name="input_CRON_BACKEND"></a> [CRON\_BACKEND](#input\_CRON\_BACKEND) | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
+| <a name="input_DEMAND_ADJUSTMENT_BACKEND"></a> [DEMAND\_ADJUSTMENT\_BACKEND](#input\_DEMAND\_ADJUSTMENT\_BACKEND) | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
+| <a name="input_DEMAND_ADJUSTMENT_FRONTEND"></a> [DEMAND\_ADJUSTMENT\_FRONTEND](#input\_DEMAND\_ADJUSTMENT\_FRONTEND) | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | <a name="input_DEMAND_PRODUCT_FEATURES_BACKEND"></a> [DEMAND\_PRODUCT\_FEATURES\_BACKEND](#input\_DEMAND\_PRODUCT\_FEATURES\_BACKEND) | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | <a name="input_DEMAND_PRODUCT_FEATURES_FRONTEND"></a> [DEMAND\_PRODUCT\_FEATURES\_FRONTEND](#input\_DEMAND\_PRODUCT\_FEATURES\_FRONTEND) | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | <a name="input_FORECAST_BACKEND"></a> [FORECAST\_BACKEND](#input\_FORECAST\_BACKEND) | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
@@ -48,6 +50,8 @@
 | <a name="input_KERINGAI_BACKEND"></a> [KERINGAI\_BACKEND](#input\_KERINGAI\_BACKEND) | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | <a name="input_KERINGAI_FRONTEND"></a> [KERINGAI\_FRONTEND](#input\_KERINGAI\_FRONTEND) | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | <a name="input_MAINFRONT_FRONTEND"></a> [MAINFRONT\_FRONTEND](#input\_MAINFRONT\_FRONTEND) | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
+| <a name="input_MASTERITEM_BACKEND"></a> [MASTERITEM\_BACKEND](#input\_MASTERITEM\_BACKEND) | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
+| <a name="input_MASTERITEM_FRONTEND"></a> [MASTERITEM\_FRONTEND](#input\_MASTERITEM\_FRONTEND) | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | <a name="input_NOTIFICATION_ADMINFRONTEND"></a> [NOTIFICATION\_ADMINFRONTEND](#input\_NOTIFICATION\_ADMINFRONTEND) | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | <a name="input_NOTIFICATION_BACKEND"></a> [NOTIFICATION\_BACKEND](#input\_NOTIFICATION\_BACKEND) | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | <a name="input_SALESWINDOWS_BACKEND"></a> [SALESWINDOWS\_BACKEND](#input\_SALESWINDOWS\_BACKEND) | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |

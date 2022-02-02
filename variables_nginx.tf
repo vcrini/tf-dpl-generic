@@ -43,6 +43,16 @@ variable "CRON_ADMINFRONTEND" {
   description = "environment variable to use as dynamic hostname for homonym component"
   type        = string
 }
+variable "DEMAND_ADJUSTMENT_BACKEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
+variable "DEMAND_ADJUSTMENT_FRONTEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
 variable "DEMAND_PRODUCT_FEATURES_BACKEND" {
   default     = ""
   description = "environment variable to use as dynamic hostname for homonym component"
@@ -74,6 +84,16 @@ variable "KERINGAI_FRONTEND" {
   type        = string
 }
 variable "MAINFRONT_FRONTEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
+variable "MASTERITEM_BACKEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
+variable "MASTERITEM_FRONTEND" {
   default     = ""
   description = "environment variable to use as dynamic hostname for homonym component"
   type        = string
