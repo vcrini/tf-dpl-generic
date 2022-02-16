@@ -47,6 +47,7 @@
 | <a name="input_DEMAND_PRODUCT_FEATURES_FRONTEND"></a> [DEMAND\_PRODUCT\_FEATURES\_FRONTEND](#input\_DEMAND\_PRODUCT\_FEATURES\_FRONTEND) | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | <a name="input_FORECAST_BACKEND"></a> [FORECAST\_BACKEND](#input\_FORECAST\_BACKEND) | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | <a name="input_FORECAST_FRONTEND"></a> [FORECAST\_FRONTEND](#input\_FORECAST\_FRONTEND) | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
+| <a name="input_IMPORTER_BACKEND"></a> [IMPORTER\_BACKEND](#input\_IMPORTER\_BACKEND) | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | <a name="input_KERINGAI_BACKEND"></a> [KERINGAI\_BACKEND](#input\_KERINGAI\_BACKEND) | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | <a name="input_KERINGAI_FRONTEND"></a> [KERINGAI\_FRONTEND](#input\_KERINGAI\_FRONTEND) | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |
 | <a name="input_MAINFRONT_FRONTEND"></a> [MAINFRONT\_FRONTEND](#input\_MAINFRONT\_FRONTEND) | environment variable to use as dynamic hostname for homonym component | `string` | `""` | no |

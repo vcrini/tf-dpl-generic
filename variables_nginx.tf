@@ -83,6 +83,11 @@ variable "KERINGAI_FRONTEND" {
   description = "environment variable to use as dynamic hostname for homonym component"
   type        = string
 }
+variable "IMPORTER_BACKEND" {
+  default     = ""
+  description = "environment variable to use as dynamic hostname for homonym component"
+  type        = string
+}
 variable "MAINFRONT_FRONTEND" {
   default     = ""
   description = "environment variable to use as dynamic hostname for homonym component"

@@ -241,6 +241,7 @@ locals {
       FORECAST_FRONTEND                = var.FORECAST_FRONTEND
       KERINGAI_BACKEND                 = var.KERINGAI_BACKEND
       KERINGAI_FRONTEND                = var.KERINGAI_FRONTEND
+      IMPORTER_BACKEND                 = var.IMPORTER_BACKEND
       MAINFRONT_FRONTEND               = var.MAINFRONT_FRONTEND
       MASTERITEM_BACKEND               = var.MASTERITEM_BACKEND
       MASTERITEM_FRONTEND              = var.MASTERITEM_FRONTEND
