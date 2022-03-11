@@ -3,30 +3,30 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14.0, < 2.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | = 3.73.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | = 4.4.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.73.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.4.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_balancer"></a> [balancer](#module\_balancer) | git::https://bitbucket.org/valeri0/load_balancer.git// | 0.8.0 |
-| <a name="module_deploy"></a> [deploy](#module\_deploy) | git::https://bitbucket.org/valeri0/deploy_x_application | 0.9.0 |
-| <a name="module_ecr_immutable"></a> [ecr\_immutable](#module\_ecr\_immutable) | git::https://bitbucket.org/valeri0/ecr.git | 0.2.0 |
-| <a name="module_ecr_mutable"></a> [ecr\_mutable](#module\_ecr\_mutable) | git::https://bitbucket.org/valeri0/ecr.git | 0.2.0 |
+| <a name="module_balancer"></a> [balancer](#module\_balancer) | git::https://bitbucket.org/valeri0/load_balancer.git// | 0.9.0 |
+| <a name="module_deploy"></a> [deploy](#module\_deploy) | git::https://bitbucket.org/valeri0/deploy_x_application | 1.0.0 |
+| <a name="module_ecr_immutable"></a> [ecr\_immutable](#module\_ecr\_immutable) | git::https://bitbucket.org/valeri0/ecr.git | 0.3.0 |
+| <a name="module_ecr_mutable"></a> [ecr\_mutable](#module\_ecr\_mutable) | git::https://bitbucket.org/valeri0/ecr.git | 0.3.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [aws_cloudwatch_log_group.log](https://registry.terraform.io/providers/hashicorp/aws/3.73.0/docs/resources/cloudwatch_log_group) | resource |
-| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/3.73.0/docs/data-sources/caller_identity) | data source |
-| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/3.73.0/docs/data-sources/region) | data source |
+| [aws_cloudwatch_log_group.log](https://registry.terraform.io/providers/hashicorp/aws/4.4.0/docs/resources/cloudwatch_log_group) | resource |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/4.4.0/docs/data-sources/caller_identity) | data source |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/4.4.0/docs/data-sources/region) | data source |
 
 ## Inputs
 
