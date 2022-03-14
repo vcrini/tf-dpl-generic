@@ -19,7 +19,7 @@ module "ecr_immutable" {
       ]
 }
 EOF
-  time_sleep           = "25s"
+  time_sleep           = "45s"
   source               = "git::https://bitbucket.org/valeri0/ecr.git?ref=0.4.0"
   #source = "/Users/vcrini/Repositories/terraform-modules/ecr"
 }
@@ -43,7 +43,7 @@ module "ecr_mutable" {
       ]
 }
 EOF
-  time_sleep = "25s"
+  time_sleep = "45s"
   source     = "git::https://bitbucket.org/valeri0/ecr.git?ref=0.4.0"
   #source = "/Users/vcrini/Repositories/terraform-modules/ecr"
 }
