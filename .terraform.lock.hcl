@@ -8,3 +8,17 @@ provider "registry.terraform.io/hashicorp/aws" {
     "h1:e9Lg+N7g//WXWDGPPbisC1w34HFIDZrCNkJFbP+z5Rk=",
   ]
 }
+
+provider "registry.terraform.io/hashicorp/random" {
+  version = "3.1.0"
+  hashes = [
+    "h1:rKYu5ZUbXwrLG1w81k7H3nce/Ys6yAxXhWcbtk36HjY=",
+  ]
+}
+
+provider "registry.terraform.io/hashicorp/time" {
+  version = "0.7.2"
+  hashes = [
+    "h1:NKy1QrNLlP5mKy5Tea6lQSRsVoyydJQKh6WvNTdBF4I=",
+  ]
+}

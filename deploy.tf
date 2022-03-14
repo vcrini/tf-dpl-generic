@@ -19,12 +19,13 @@ module "ecr_immutable" {
       ]
 }
 EOF
-  # source = "/Users/vcrini/Repositories/terraform-modules/ecr"
-  source = "git::https://bitbucket.org/valeri0/ecr.git?ref=0.3.0"
+  time_sleep           = "15s"
+  source               = "git::https://bitbucket.org/valeri0/ecr.git?ref=0.4.0"
+  #source = "/Users/vcrini/Repositories/terraform-modules/ecr"
 }
 module "ecr_mutable" {
-  name   = formatlist("%s-%s", local.ecr_repositories, "snapshot")
-  policy = <<EOF
+  name       = formatlist("%s-%s", local.ecr_repositories, "snapshot")
+  policy     = <<EOF
 {
     "rules": [
         {
@@ -42,8 +43,9 @@ module "ecr_mutable" {
       ]
 }
 EOF
-  source = "git::https://bitbucket.org/valeri0/ecr.git?ref=0.3.0"
-  # source = "/Users/vcrini/Repositories/terraform-modules/ecr"
+  time_sleep = "15s"
+  source     = "git::https://bitbucket.org/valeri0/ecr.git?ref=0.4.0"
+  #source = "/Users/vcrini/Repositories/terraform-modules/ecr"
 }
 module "deploy" {
   branch_name             = var.branch_name
@@ -83,9 +85,8 @@ module "balancer" {
   lb_name              = var.lb_name
   prefix               = var.prefix
   # source = "/Users/vcrini/Repositories/terraform-modules//load_balancer"
-  source              = "git::https://bitbucket.org/valeri0/load_balancer.git//?ref=0.9.0"
+  source              = "git::https://bitbucket.org/valeri0/load_balancer.git//?ref=1.0.0"
   ssl_certificate_arn = local.ssl_certificate_arn
   target_group        = var.target_group
-  target_group_prefix = var.target_group_prefix
   vpc_id              = var.vpc_id
 }

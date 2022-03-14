@@ -35,7 +35,7 @@ variable "ecs_image_pull_behavior" {
   default     = "always"
   description = "to ensure lastest images is alway pulled"
 }
-variable "env" {
+variable "container_env" {
   default     = {}
   description = "dictionary environment variable to use as dynamic hostname for homonym component"
   type        = map(any)
@@ -243,7 +243,7 @@ locals {
       sbt_image_version              = var.sbt_image_version
       task_role_arn                  = local.role_arn_task
       ENV                            = var.deploy_environment
-      env                            = var.env
+      container_env                  = var.container_env
 
     }
   )
