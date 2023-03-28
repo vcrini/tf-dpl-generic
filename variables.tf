@@ -15,7 +15,6 @@ variable "aws_account_id2" {
   description = "needed for creating role to create infrastructure for codecommit in prod enviroment"
   type        = string
 }
-
 variable "aws_desired_count" {
   default     = 1
   description = "how many tasks run"
@@ -68,6 +67,7 @@ variable "deploy_environment" {
 variable "deploy_role" {
   default     = "dpl-admin-role"
   description = "role used to deploy"
+  type        = string
 }
 variable "deployment_max_percent" {
   default     = 100
@@ -78,15 +78,6 @@ variable "deployment_min_healthy_percent" {
   default     = 0
   description = "to deploy without use more cluster capacity"
   type        = number
-}
-variable "deploy_versions" {
-  default     = true
-  description = "enables deploying specific versions through dedicated pipeline"
-  type        = string
-}
-variable "enable_cross_account" {
-  description = "flag to install accordingly to environment cross notifies between AWS accounts"
-  type        = string
 }
 variable "force_approve" {
   type        = string
@@ -102,12 +93,6 @@ variable "image_repo_name" {
 variable "kms_arn" {
   default     = "arn:aws:kms:eu-west-1:796341525871:key/e9141a5d-f993-464d-af9e-82f5272c85f9"
   description = "kms keys used to crypt bucket to enable cross account access for prod -> test"
-  type        = string
-}
-
-variable "manage_repositories" {
-  default     = "true"
-  description = "to let this library to manage directly repository creation"
   type        = string
 }
 variable "prefix" {
@@ -126,11 +111,6 @@ variable "retention_in_days" {
 }
 variable "role_arn" {
   description = "assumed to create infrastructure in enviroment where .hcl is ran"
-  type        = string
-}
-variable "role_arn2" {
-  default     = "arn:aws:iam::092467779203:role/dpl-admin-role"
-  description = "assumed to create infrastructure in prod enviroment where codecommit repositories are expected to be"
   type        = string
 }
 variable "role_arn_codepipeline_name" {
@@ -171,33 +151,21 @@ variable "tag" {
   description = "tag to be added"
   type        = map(any)
 }
-variable "tag_alt" {
-  default     = {}
-  description = "tag to be added with the alternative account a.k.a prod one"
-  type        = map(any)
-}
 data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 locals {
-  account_id             = data.aws_caller_identity.current.account_id
-  proxy_name             = "${local.repository_name}-proxy"
-  region                 = data.aws_region.current.name
-  repository_name        = var.repository_name
-  repository_name_deploy = "${local.repository_name}-deploy"
-
-  role_prefix  = "arn:aws:iam::${local.account_id}:role/"
-  role_prefix2 = "arn:aws:iam::${var.aws_account_id2}:role/"
+  account_id      = data.aws_caller_identity.current.account_id
+  proxy_name      = "${local.repository_name}-proxy"
+  region          = data.aws_region.current.name
+  repository_name = var.repository_name
+  role_prefix     = "arn:aws:iam::${local.account_id}:role/"
+  role_prefix2    = "arn:aws:iam::${var.aws_account_id2}:role/"
 }
 locals {
-  arn_target       = "arn:aws:events:${local.region}:${local.account_id}:event-bus/default"
   ecr_repositories = compact(concat([local.repository_name], formatlist("%s-%s", local.repository_name, var.additional_ecr_repos)))
 
   image_repo            = "${local.account_id}.dkr.ecr.${local.region}.amazonaws.com/"
-  key                   = "terraform/tfstate/$(local.repository_name).tfstate"
   role_arn              = "${local.role_prefix}${var.deploy_role}"
-  role_arn2             = "${local.role_prefix2}${var.deploy_role}"
-  role_arn_target       = "${local.role_prefix}dpl-start-pipeline-automation"
-  role_arn_target2      = "${local.role_prefix2}dpl-start-pipeline-automation"
   role_arn_task         = "${local.role_prefix}${var.role_arn_task_name}"
   role_arn_codebuild    = "${local.role_prefix}codebuild-dpl-codebuild-service-role"
   role_arn_codepipeline = "${local.role_prefix}${var.role_arn_codepipeline_name}"
@@ -220,7 +188,6 @@ locals {
       sbt_opts                = var.sbt_opts
     }
   )
-  deploy2_name = local.repository_name_deploy
   deployspec = templatefile("${path.module}/templates/deployspec.tmpl",
     {
       aws_container_name             = var.target_group["app"]["container"]
@@ -247,6 +214,4 @@ locals {
 
     }
   )
-  ecr_repository_list          = [local.repository_name]
-  ecr_repository_list_snapshot = [for name in local.ecr_repository_list : "${name}-snapshot"]
 }
