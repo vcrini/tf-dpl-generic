@@ -19,13 +19,12 @@ module "ecr_immutable" {
       ]
 }
 EOF
-  time_sleep           = "45s"
-  source               = "git::https://bitbucket.org/valeri0/ecr.git?ref=0.5.0"
-  #source = "/Users/vcrini/Repositories/terraform-modules/ecr"
+  source               = "git::https://bitbucket.org/valeri0/ecr.git?ref=0.6.0"
+  # source = "/Users/vcrini/Repositories/terraform-modules/ecr"
 }
 module "ecr_mutable" {
-  name       = formatlist("%s-%s", local.ecr_repositories, "snapshot")
-  policy     = <<EOF
+  name   = formatlist("%s-%s", local.ecr_repositories, "snapshot")
+  policy = <<EOF
 {
     "rules": [
         {
@@ -43,14 +42,12 @@ module "ecr_mutable" {
       ]
 }
 EOF
-  time_sleep = "45s"
-  source     = "git::https://bitbucket.org/valeri0/ecr.git?ref=0.5.0"
-  #source = "/Users/vcrini/Repositories/terraform-modules/ecr"
+  source = "git::https://bitbucket.org/valeri0/ecr.git?ref=0.6.0"
+  # source = "/Users/vcrini/Repositories/terraform-modules/ecr"
 }
 module "deploy" {
   branch_name             = var.branch_name
   buildspec               = local.buildspec
-  cluster_name            = var.aws_ecs_cluster
   codepipeline_bucket     = var.codepipeline_bucket
   deploy_environment      = var.deploy_environment
   deployspec              = local.deployspec
@@ -60,13 +57,12 @@ module "deploy" {
   poll_for_source_changes = "false"
   prefix                  = var.prefix
   repository_name         = local.repository_name
-  role_arn                = local.role_arn
   role_arn_codebuild      = local.role_arn_codebuild
   role_arn_codepipeline   = local.role_arn_codepipeline
   role_arn_source         = local.role_arn_source
   s3_cache                = var.s3_cache
   # source                  = "/Users/vcrini/Repositories/terraform-modules/deploy_x_application"
-  source = "git::https://bitbucket.org/valeri0/deploy_x_application?ref=1.0.0"
+  source = "git::https://bitbucket.org/valeri0/deploy_x_application?ref=1.2.0"
 }
 
 resource "aws_cloudwatch_log_group" "log" {
@@ -84,8 +80,8 @@ module "balancer" {
   listener             = var.listener
   lb_name              = var.lb_name
   prefix               = var.prefix
-  #source = "/Users/vcrini/Repositories/terraform-modules//load_balancer"
-  source              = "git::https://bitbucket.org/valeri0/load_balancer.git//?ref=1.4.0"
+  # source = "/Users/vcrini/Repositories/terraform-modules//load_balancer"
+  source              = "git::https://bitbucket.org/valeri0/load_balancer.git//?ref=1.5.0"
   ssl_certificate_arn = local.ssl_certificate_arn
   ssl_policy          = "ELBSecurityPolicy-TLS13-1-2-2021-06"
   target_group        = var.target_group

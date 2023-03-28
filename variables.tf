@@ -64,11 +64,6 @@ variable "deploy_environment" {
   description = "test or prod environment"
   type        = string
 }
-variable "deploy_role" {
-  default     = "dpl-admin-role"
-  description = "role used to deploy"
-  type        = string
-}
 variable "deployment_max_percent" {
   default     = 100
   description = "all tasks continue to run during deploy"
@@ -109,10 +104,6 @@ variable "retention_in_days" {
   description = "how many days wait before deleting logs"
   type        = number
 }
-variable "role_arn" {
-  description = "assumed to create infrastructure in enviroment where .hcl is ran"
-  type        = string
-}
 variable "role_arn_codepipeline_name" {
   description = "role used by codepipeline"
   type        = string
@@ -146,6 +137,11 @@ variable "sbt_opts" {
   description = "parameters needed to compile without errors"
   type        = string
 }
+variable "role_arn" {
+  description = "assumed to create infrastructure in enviroment where .hcl is ran"
+  type        = string
+}
+
 variable "tag" {
   default     = {}
   description = "tag to be added"
@@ -165,7 +161,6 @@ locals {
   ecr_repositories = compact(concat([local.repository_name], formatlist("%s-%s", local.repository_name, var.additional_ecr_repos)))
 
   image_repo            = "${local.account_id}.dkr.ecr.${local.region}.amazonaws.com/"
-  role_arn              = "${local.role_prefix}${var.deploy_role}"
   role_arn_task         = "${local.role_prefix}${var.role_arn_task_name}"
   role_arn_codebuild    = "${local.role_prefix}codebuild-dpl-codebuild-service-role"
   role_arn_codepipeline = "${local.role_prefix}${var.role_arn_codepipeline_name}"
