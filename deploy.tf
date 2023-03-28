@@ -20,7 +20,7 @@ module "ecr_immutable" {
 }
 EOF
   time_sleep           = "45s"
-  source               = "git::https://bitbucket.org/valeri0/ecr.git?ref=0.4.0"
+  source               = "git::https://bitbucket.org/valeri0/ecr.git?ref=0.5.0"
   #source = "/Users/vcrini/Repositories/terraform-modules/ecr"
 }
 module "ecr_mutable" {
@@ -44,7 +44,7 @@ module "ecr_mutable" {
 }
 EOF
   time_sleep = "45s"
-  source     = "git::https://bitbucket.org/valeri0/ecr.git?ref=0.4.0"
+  source     = "git::https://bitbucket.org/valeri0/ecr.git?ref=0.5.0"
   #source = "/Users/vcrini/Repositories/terraform-modules/ecr"
 }
 module "deploy" {
@@ -84,9 +84,10 @@ module "balancer" {
   listener             = var.listener
   lb_name              = var.lb_name
   prefix               = var.prefix
-  # source = "/Users/vcrini/Repositories/terraform-modules//load_balancer"
-  source              = "git::https://bitbucket.org/valeri0/load_balancer.git//?ref=1.0.2"
+  #source = "/Users/vcrini/Repositories/terraform-modules//load_balancer"
+  source              = "git::https://bitbucket.org/valeri0/load_balancer.git//?ref=1.4.0"
   ssl_certificate_arn = local.ssl_certificate_arn
+  ssl_policy          = "ELBSecurityPolicy-TLS13-1-2-2021-06"
   target_group        = var.target_group
   vpc_id              = var.vpc_id
 }
