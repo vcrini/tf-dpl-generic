@@ -167,6 +167,7 @@ locals {
   role_arn_source       = "${local.role_prefix2}dpl-AssumeCodeCommitGucciDev"
   buildspec = templatefile("${path.module}/templates/buildspec.tmpl",
     {
+      account_id              = local.account_id
       codeartifact_account_id = var.codeartifact_account_id
       codeartifact_repository = var.codeartifact_repository
       codeartifact_domain     = var.codeartifact_domain
@@ -185,6 +186,7 @@ locals {
   )
   deployspec = templatefile("${path.module}/templates/deployspec.tmpl",
     {
+      account_id                     = local.account_id
       aws_container_name             = var.target_group["app"]["container"]
       aws_container_port             = var.target_group["app"]["destination_port"]
       aws_desired_count              = var.aws_desired_count
