@@ -1,3 +1,4 @@
+
 variable "aws_ecs_cluster" {
   description = "cluster name"
   type        = string
@@ -39,7 +40,10 @@ variable "container_env" {
   description = "dictionary environment variable to use as dynamic hostname for homonym component"
   type        = map(any)
 }
-
+variable "build_template_name" {
+  description = "build template name read from template and autmatically added tmpl extension"
+  type        = string
+}
 variable "branch_name" {
   description = "branch used from codecommit"
   type        = string
@@ -74,6 +78,11 @@ variable "deployment_min_healthy_percent" {
   description = "to deploy without use more cluster capacity"
   type        = number
 }
+variable "deploy_template_name" {
+  description = "deploy template name read from template and autmatically added tmpl extension"
+  type        = string
+}
+
 variable "force_approve" {
   type        = string
   default     = "false"
@@ -165,9 +174,11 @@ locals {
   role_arn_codebuild    = "${local.role_prefix}codebuild-dpl-codebuild-service-role"
   role_arn_codepipeline = "${local.role_prefix}${var.role_arn_codepipeline_name}"
   role_arn_source       = "${local.role_prefix2}dpl-AssumeCodeCommitGucciDev"
-  buildspec = templatefile("${path.module}/templates/buildspec.tmpl",
+  buildspec = templatefile("${path.module}/templates/${var.build_template_name}.tmpl",
+
     {
       account_id              = local.account_id
+      build_template_name     = var.build_template_name
       codeartifact_account_id = var.codeartifact_account_id
       codeartifact_repository = var.codeartifact_repository
       codeartifact_domain     = var.codeartifact_domain
@@ -184,7 +195,7 @@ locals {
       sbt_opts                = var.sbt_opts
     }
   )
-  deployspec = templatefile("${path.module}/templates/deployspec.tmpl",
+  deployspec = templatefile("${path.module}/templates/${var.deploy_template_name}.tmpl",
     {
       account_id                     = local.account_id
       aws_container_name             = var.target_group["app"]["container"]
@@ -196,6 +207,7 @@ locals {
       aws_stream_prefix              = local.repository_name
       aws_subnet                     = var.aws_subnet
       aws_target_group_arn           = module.balancer.output_lb_target_group["app"].arn
+      deploy_template_name           = var.deploy_template_name
       deployment_max_percent         = var.deployment_max_percent
       deployment_min_healthy_percent = var.deployment_min_healthy_percent
       ecs_image_pull_behavior        = var.ecs_image_pull_behavior
