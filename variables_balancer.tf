@@ -13,6 +13,7 @@ variable "lb_name" {
   type        = string
 }
 variable "listener" {
+  default     = null
   description = "map representing listener configuration"
   type        = map(any)
 }
@@ -22,6 +23,7 @@ variable "ssl_certificate_arn_name" {
   type        = string
 }
 variable "target_group" {
+  default     = {}
   description = "map representing target group configuration"
   type        = map(any)
 }

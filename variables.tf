@@ -1,4 +1,15 @@
+variable "artifacts" {
+  default = [
+    "build.txt",
+    "ecs-params.yml",
+    "docker-compose.yml",
+    "docker-compose.aws.yml",
+    "tag",
+  ]
 
+  description = "List of artifact to use during codebuild phase"
+  type        = list(any)
+}
 variable "aws_ecs_cluster" {
   description = "cluster name"
   type        = string
@@ -26,6 +37,18 @@ variable "additional_ecr_repos" {
   description = "used to create ECR infrastructure if there is more than one"
   type        = list(any)
 }
+variable "cache" {
+  description = "cache directories during build"
+  default     = []
+  type        = list(any)
+}
+variable "create_ecr" {
+  description = "if create or not ecr repositories. It's useful if there is no need as in lambda"
+  #using string because they can be overwritten by inputs in terragrunt 
+  default = "true"
+  type    = string
+}
+
 variable "dockerhub_user" {
   description = "used to allow more than 100 pull in 6 hours (should be 200) see https://docs.docker.com/docker-hub/download-rate-limit/"
   type        = string
@@ -36,6 +59,11 @@ variable "ecs_image_pull_behavior" {
   description = "to ensure lastest images is alway pulled"
 }
 variable "container_env" {
+  default     = {}
+  description = "dictionary environment variable to use as dynamic hostname for homonym component"
+  type        = map(any)
+}
+variable "container_env2" {
   default     = {}
   description = "dictionary environment variable to use as dynamic hostname for homonym component"
   type        = map(any)
@@ -98,6 +126,18 @@ variable "kms_arn" {
   default     = "arn:aws:kms:eu-west-1:796341525871:key/e9141a5d-f993-464d-af9e-82f5272c85f9"
   description = "kms keys used to crypt bucket to enable cross account access for prod -> test"
   type        = string
+}
+variable "parameter_store_default" {
+  default = {
+    DOCKERHUB_PASSWORD : "dpl-dockerhub-password"
+  }
+  description = "dictionary of secrets to use as dynamic hostname for homonym component"
+  type        = map(any)
+}
+variable "parameter_store" {
+  default     = {}
+  description = "dictionary of secrets to use as dynamic hostname for homonym component"
+  type        = map(any)
 }
 variable "prefix" {
   description = "prefix name for infrastructure, ex. fdh, dpl, bitots"
@@ -178,7 +218,9 @@ locals {
 
     {
       account_id              = local.account_id
+      artifacts               = var.artifacts
       build_template_name     = var.build_template_name
+      cache                   = var.cache
       codeartifact_account_id = var.codeartifact_account_id
       codeartifact_repository = var.codeartifact_repository
       codeartifact_domain     = var.codeartifact_domain
@@ -193,20 +235,22 @@ locals {
       s3_aws_role_arn         = var.s3_aws_role_arn
       sbt_image_version       = var.sbt_image_version
       sbt_opts                = var.sbt_opts
+      container_env           = merge(var.container_env, var.container_env2)
+      parameter_store         = merge(var.parameter_store, var.parameter_store_default)
     }
   )
   deployspec = templatefile("${path.module}/templates/${var.deploy_template_name}.tmpl",
     {
       account_id                     = local.account_id
-      aws_container_name             = var.target_group["app"]["container"]
-      aws_container_port             = var.target_group["app"]["destination_port"]
+      aws_container_name             = var.listener != null ? var.target_group["app"]["container"] : ""
+      aws_container_port             = var.listener != null ? var.target_group["app"]["destination_port"] : ""
       aws_desired_count              = var.aws_desired_count
       aws_ecs_cluster                = var.aws_ecs_cluster
       aws_service_name               = local.repository_name
       aws_security_group             = var.aws_security_group
       aws_stream_prefix              = local.repository_name
       aws_subnet                     = var.aws_subnet
-      aws_target_group_arn           = module.balancer.output_lb_target_group["app"].arn
+      aws_target_group_arn           = var.listener != null ? module.balancer.output_lb_target_group["app"].arn : ""
       deploy_template_name           = var.deploy_template_name
       deployment_max_percent         = var.deployment_max_percent
       deployment_min_healthy_percent = var.deployment_min_healthy_percent
@@ -219,8 +263,8 @@ locals {
       sbt_image_version              = var.sbt_image_version
       task_role_arn                  = local.role_arn_task
       ENV                            = var.deploy_environment
-      container_env                  = var.container_env
-
+      container_env                  = merge(var.container_env, var.container_env2)
+      parameter_store                = merge(var.parameter_store, var.parameter_store_default)
     }
   )
 }

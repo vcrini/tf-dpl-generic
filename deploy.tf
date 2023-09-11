@@ -1,4 +1,5 @@
 module "ecr_immutable" {
+  count                = var.create_ecr != "false" ? 1 : 0
   image_tag_mutability = "IMMUTABLE"
   name                 = local.ecr_repositories
   policy               = <<EOF
@@ -23,6 +24,7 @@ EOF
   # source = "/Users/vcrini/Repositories/terraform-modules/ecr"
 }
 module "ecr_mutable" {
+  count  = var.create_ecr != "false" ? 1 : 0
   name   = formatlist("%s-%s", local.ecr_repositories, "snapshot")
   policy = <<EOF
 {
@@ -73,6 +75,7 @@ resource "aws_cloudwatch_log_group" "log" {
 
 module "balancer" {
   alarm_arn            = var.alarm_arn
+  count                = var.lb_name == "" ? 0 : 1
   default_cname        = var.default_cname
   deploy_environment   = var.deploy_environment
   repository_name      = local.repository_name
@@ -81,7 +84,7 @@ module "balancer" {
   lb_name              = var.lb_name
   prefix               = var.prefix
   # source = "/Users/vcrini/Repositories/terraform-modules//load_balancer"
-  source              = "git::https://bitbucket.org/valeri0/load_balancer.git//?ref=1.5.0"
+  source              = "git::https://bitbucket.org/valeri0/load_balancer.git//?ref=1.6.0"
   ssl_certificate_arn = local.ssl_certificate_arn
   ssl_policy          = "ELBSecurityPolicy-TLS13-1-2-2021-06"
   target_group        = var.target_group

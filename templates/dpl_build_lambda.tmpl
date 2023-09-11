@@ -1,0 +1,43 @@
+version: 0.2
+env:
+  variables:
+    ACCOUNT_ID: ${account_id}
+    build_template_name: ${build_template_name}
+    DOCKERHUB_USER: ${dockerhub_user}
+    repository_name: ${repository_name}
+    codeartifact_repository: ${codeartifact_repository}
+    codeartifact_domain: ${codeartifact_domain}
+    domain_owner: ${codeartifact_account_id}
+    environment: ${environment}
+    image_repo: ${image_repo} 
+    image_repo_name: ${image_repo_name} 
+    proxy_name: ${proxy_name}
+    %{ for config_key, config_value in container_env }${config_key}: ${config_value} 
+    %{ endfor ~}
+
+  parameter-store:
+    %{ for config_key, config_value in parameter_store }${config_key}: ${config_value} 
+    %{ endfor ~}
+
+  exported-variables:
+    - account_id
+    %{ for config_key, config_value in container_env ~}- ${config_key }
+    %{ endfor ~}
+
+phases:
+  build:
+    commands:
+      - echo "[ECHO] Running pre_build STEP at $(date)"
+      - git clone https://github.com/vcrini/aws-utilities  -b migration   --depth=1 utilities
+      - bash -ex utilities/codebuild/$build_template_name.sh
+
+artifacts:
+    files:
+      %{ for config_key in artifacts}- ${config_key}
+      %{ endfor ~}
+%{ if length(cache)>0 }
+cache:
+  paths:
+    %{ for config_key in cache}- ${config_key}
+    %{ endfor ~}
+%{ endif }
