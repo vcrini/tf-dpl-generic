@@ -15,10 +15,6 @@ env:
     %{ for config_key, config_value in container_env }${config_key}: ${config_value} 
     %{ endfor ~}
 
-  parameter-store:
-    %{ for config_key, config_value in parameter_store }${config_key}: ${config_value} 
-    %{ endfor ~}
-
   exported-variables:
     - account_id
     %{ for config_key, config_value in container_env ~}- ${config_key }
@@ -30,14 +26,3 @@ phases:
       - echo "[ECHO] Running pre_build STEP at $(date)"
       - git clone https://github.com/vcrini/aws-utilities  -b migration   --depth=1 utilities
       - bash -ex utilities/codebuild/$build_template_name.sh
-
-artifacts:
-    files:
-      %{ for config_key in artifacts}- ${config_key}
-      %{ endfor ~}
-%{ if length(cache)>0 }
-cache:
-  paths:
-    %{ for config_key in cache}- ${config_key}
-    %{ endfor ~}
-%{ endif }

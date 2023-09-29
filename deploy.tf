@@ -20,8 +20,8 @@ module "ecr_immutable" {
       ]
 }
 EOF
-  source               = "git::https://bitbucket.org/valeri0/ecr.git?ref=0.6.0"
-  # source = "/Users/vcrini/Repositories/terraform-modules/ecr"
+  source               = "git::https://bitbucket.org/valeri0/ecr.git?ref=0.9.0"
+  #source = "/Users/vcrini/Repositories/terraform-modules/ecr"
 }
 module "ecr_mutable" {
   count  = var.create_ecr != "false" ? 1 : 0
@@ -44,7 +44,7 @@ module "ecr_mutable" {
       ]
 }
 EOF
-  source = "git::https://bitbucket.org/valeri0/ecr.git?ref=0.6.0"
+  source = "git::https://bitbucket.org/valeri0/ecr.git?ref=0.9.0"
   # source = "/Users/vcrini/Repositories/terraform-modules/ecr"
 }
 module "deploy" {
@@ -52,6 +52,7 @@ module "deploy" {
   buildspec               = local.buildspec
   codepipeline_bucket     = var.codepipeline_bucket
   deploy_environment      = var.deploy_environment
+  deploy_template_name    = var.deploy_template_name
   deployspec              = local.deployspec
   force_approve           = var.force_approve
   kms_arn                 = var.kms_arn
@@ -64,7 +65,7 @@ module "deploy" {
   role_arn_source         = local.role_arn_source
   s3_cache                = var.s3_cache
   # source                  = "/Users/vcrini/Repositories/terraform-modules/deploy_x_application"
-  source = "git::https://bitbucket.org/valeri0/deploy_x_application?ref=1.2.0"
+  source = "git::https://bitbucket.org/valeri0/deploy_x_application?ref=1.5.0"
 }
 
 resource "aws_cloudwatch_log_group" "log" {
@@ -83,8 +84,8 @@ module "balancer" {
   listener             = var.listener
   lb_name              = var.lb_name
   prefix               = var.prefix
-  # source = "/Users/vcrini/Repositories/terraform-modules//load_balancer"
-  source              = "git::https://bitbucket.org/valeri0/load_balancer.git//?ref=1.6.0"
+  #source               = "/Users/vcrini/Repositories/terraform-modules//load_balancer"
+  source              = "git::https://bitbucket.org/valeri0/load_balancer.git//?ref=1.7.0"
   ssl_certificate_arn = local.ssl_certificate_arn
   ssl_policy          = "ELBSecurityPolicy-TLS13-1-2-2021-06"
   target_group        = var.target_group

@@ -239,7 +239,7 @@ locals {
       parameter_store         = merge(var.parameter_store, var.parameter_store_default)
     }
   )
-  deployspec = templatefile("${path.module}/templates/${var.deploy_template_name}.tmpl",
+  deployspec = var.deploy_template_name == "skip" ? "" : templatefile("${path.module}/templates/${var.deploy_template_name}.tmpl",
     {
       account_id                     = local.account_id
       aws_container_name             = var.listener != null ? var.target_group["app"]["container"] : ""
@@ -250,7 +250,7 @@ locals {
       aws_security_group             = var.aws_security_group
       aws_stream_prefix              = local.repository_name
       aws_subnet                     = var.aws_subnet
-      aws_target_group_arn           = var.listener != null ? module.balancer.output_lb_target_group["app"].arn : ""
+      aws_target_group_arn           = var.listener != null ? module.balancer[0].output_lb_target_group["app"].arn : ""
       deploy_template_name           = var.deploy_template_name
       deployment_max_percent         = var.deployment_max_percent
       deployment_min_healthy_percent = var.deployment_min_healthy_percent
