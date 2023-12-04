@@ -163,7 +163,6 @@ variable "role_arn_task_name" {
   type        = string
 }
 variable "s3_aws_access_key_id" {
-  default     = "AKIAQRJF3PUJGXL5OJLD"
   description = "account used to access scala libraries"
   type        = string
 }
