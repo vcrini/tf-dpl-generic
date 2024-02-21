@@ -45,7 +45,7 @@ phases:
   build:
     commands:
       - cp ~/.npmrc .
-      - CMD="docker build -t $app_repo --build-arg ENV=\"$environment\" --build-arg ssh_prv_key=$ssh_prv_key --cache-from $app_repo ."
+      - CMD="docker build -t $app_repo --build-arg ENV=$environment --build-arg ssh_prv_key=$ssh_prv_key --cache-from $app_repo ."
       - echo $CMD
       - exec $CMD
       - |-
