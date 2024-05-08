@@ -64,8 +64,8 @@ module "deploy" {
   role_arn_codepipeline   = local.role_arn_codepipeline
   role_arn_source         = local.role_arn_source
   s3_cache                = var.s3_cache
-  # source                  = "/Users/vcrini/Repositories/terraform-modules/deploy_x_application"
-  source = "git::https://bitbucket.org/valeri0/deploy_x_application?ref=1.6.1"
+  source                  = "/Users/vcrini/Repositories/terraform-modules/deploy_x_application"
+  #source = "git::https://bitbucket.org/valeri0/deploy_x_application?ref=1.6.1"
 }
 
 resource "aws_cloudwatch_log_group" "log" {

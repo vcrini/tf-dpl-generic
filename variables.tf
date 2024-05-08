@@ -111,6 +111,10 @@ variable "deploy_template_name" {
   type        = string
 }
 
+variable "env_in_repository_name" {
+  description = "name of the repository with 'env' after prefix used if same account is shared"
+  type        = string
+}
 variable "force_approve" {
   type        = string
   default     = "false"
@@ -189,7 +193,11 @@ variable "role_arn" {
   description = "assumed to create infrastructure in enviroment where .hcl is ran"
   type        = string
 }
-
+variable "shared_account" {
+  description = "to indicate that in same environment is present more than on deploy so different naming convention must be applied for ECR repos and pipelines"
+  type        = bool
+  default     = false
+}
 variable "tag" {
   default     = {}
   description = "tag to be added"
@@ -206,7 +214,7 @@ locals {
   role_prefix2    = "arn:aws:iam::${var.aws_account_id2}:role/"
 }
 locals {
-  ecr_repositories = compact(concat([local.repository_name], formatlist("%s-%s", local.repository_name, var.additional_ecr_repos)))
+  ecr_repositories = var.shared_account ? compact(concat([var.env_in_repository_name], formatlist("%s-%s", var.env_in_repository_name, var.additional_ecr_repos))) : compact(concat([local.repository_name], formatlist("%s-%s", local.repository_name, var.additional_ecr_repos)))
 
   image_repo            = "${local.account_id}.dkr.ecr.${local.region}.amazonaws.com/"
   role_arn_task         = "${local.role_prefix}${var.role_arn_task_name}"
