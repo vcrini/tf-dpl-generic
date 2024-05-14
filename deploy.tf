@@ -51,6 +51,7 @@ module "deploy" {
   branch_name             = var.branch_name
   buildspec               = local.buildspec
   codepipeline_bucket     = var.codepipeline_bucket
+  env_in_repository_name  = var.env_in_repository_name
   deploy_environment      = var.deploy_environment
   deploy_template_name    = var.deploy_template_name
   deployspec              = local.deployspec
@@ -58,14 +59,14 @@ module "deploy" {
   kms_arn                 = var.kms_arn
   image                   = "aws/codebuild/amazonlinux2-x86_64-standard:5.0"
   poll_for_source_changes = "false"
-  prefix                  = var.prefix
   repository_name         = local.repository_name
   role_arn_codebuild      = local.role_arn_codebuild
   role_arn_codepipeline   = local.role_arn_codepipeline
   role_arn_source         = local.role_arn_source
   s3_cache                = var.s3_cache
-  source                  = "/Users/vcrini/Repositories/terraform-modules/deploy_x_application"
-  #source = "git::https://bitbucket.org/valeri0/deploy_x_application?ref=1.6.1"
+  shared_account          = var.shared_account
+  # source                  = "/Users/vcrini/Repositories/terraform-modules/deploy_x_application"
+  source = "git::https://bitbucket.org/valeri0/deploy_x_application?ref=1.7.0"
 }
 
 resource "aws_cloudwatch_log_group" "log" {

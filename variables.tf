@@ -1,3 +1,8 @@
+variable "role_arn_codebuild_name" {
+  description = "codebuild role name"
+  type        = string
+  default     = "codebuild-dpl-codebuild-service-role"
+}
 variable "artifacts" {
   default = [
     "build.txt",
@@ -218,7 +223,7 @@ locals {
 
   image_repo            = "${local.account_id}.dkr.ecr.${local.region}.amazonaws.com/"
   role_arn_task         = "${local.role_prefix}${var.role_arn_task_name}"
-  role_arn_codebuild    = "${local.role_prefix}codebuild-dpl-codebuild-service-role"
+  role_arn_codebuild    = "${local.role_prefix}${var.role_arn_codebuild_name}"
   role_arn_codepipeline = "${local.role_prefix}${var.role_arn_codepipeline_name}"
   role_arn_source       = "${local.role_prefix2}dpl-AssumeCodeCommitGucciDev"
   buildspec = templatefile("${path.module}/templates/${var.build_template_name}.tmpl",
