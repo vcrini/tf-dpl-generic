@@ -74,6 +74,12 @@ resource "aws_cloudwatch_log_group" "log" {
   name              = each.value
   retention_in_days = var.retention_in_days
 }
+# if a lambda then created lambda log group
+resource "aws_cloudwatch_log_group" "lambda" {
+  count             = var.lambda_log_group == "" ? 0 : 1
+  name              = var.lambda_log_group
+  retention_in_days = var.retention_in_days
+}
 
 module "balancer" {
   alarm_arn            = var.alarm_arn

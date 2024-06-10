@@ -1,3 +1,4 @@
+
 variable "role_arn_codebuild_name" {
   description = "codebuild role name"
   type        = string
@@ -134,6 +135,11 @@ variable "image_repo_name" {
 variable "kms_arn" {
   default     = "arn:aws:kms:eu-west-1:796341525871:key/e9141a5d-f993-464d-af9e-82f5272c85f9"
   description = "kms keys used to crypt bucket to enable cross account access for prod -> test"
+  type        = string
+}
+variable "lambda_log_group" {
+  default     = ""
+  description = "log group to use if it's a lambda"
   type        = string
 }
 variable "parameter_store_default" {
