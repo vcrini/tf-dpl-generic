@@ -48,12 +48,6 @@ variable "cache" {
   default     = []
   type        = list(any)
 }
-variable "create_ecr" {
-  description = "if create or not ecr repositories. It's useful if there is no need as in lambda"
-  #using string because they can be overwritten by inputs in terragrunt 
-  default = "true"
-  type    = string
-}
 
 variable "dockerhub_user" {
   description = "used to allow more than 100 pull in 6 hours (should be 200) see https://docs.docker.com/docker-hub/download-rate-limit/"
@@ -127,6 +121,11 @@ variable "force_approve" {
   description = "if false than an approve is requested, otherwise there is no approve phase after build and before deploy"
 }
 
+variable "force_ecr_delete" {
+  type        = bool
+  default     = true
+  description = "force cancellation even if ecr containers has images"
+}
 variable "image_repo_name" {
   default     = "fdh-sbt"
   description = "name of repository with sbt builder image"
@@ -226,6 +225,7 @@ locals {
 }
 locals {
   ecr_repositories = var.shared_account ? compact(concat([var.env_in_repository_name], formatlist("%s-%s", var.env_in_repository_name, var.additional_ecr_repos))) : compact(concat([local.repository_name], formatlist("%s-%s", local.repository_name, var.additional_ecr_repos)))
+  application_name = var.shared_account ? var.env_in_repository_name : var.repository_name
 
   image_repo            = "${local.account_id}.dkr.ecr.${local.region}.amazonaws.com/"
   role_arn_task         = "${local.role_prefix}${var.role_arn_task_name}"
@@ -247,7 +247,7 @@ locals {
       image_repo              = local.image_repo
       image_repo_name         = var.image_repo_name
       proxy_name              = local.proxy_name
-      repository_name         = local.repository_name
+      repository_name         = local.application_name
       s3_aws_access_key_id    = var.s3_aws_access_key_id
       s3_aws_default_region   = local.region
       s3_aws_role_arn         = var.s3_aws_role_arn
@@ -277,7 +277,7 @@ locals {
       image_repo                     = local.image_repo
       image_repo_name                = var.image_repo_name
       proxy_name                     = local.proxy_name
-      repository_name                = local.repository_name
+      repository_name                = local.application_name
       sbt_image_version              = var.sbt_image_version
       task_role_arn                  = local.role_arn_task
       ENV                            = var.deploy_environment

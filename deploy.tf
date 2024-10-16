@@ -1,5 +1,5 @@
 module "ecr_immutable" {
-  count                = var.create_ecr != "false" ? 1 : 0
+  force_delete         = var.force_ecr_delete
   image_tag_mutability = "IMMUTABLE"
   name                 = local.ecr_repositories
   policy               = <<EOF
@@ -20,13 +20,13 @@ module "ecr_immutable" {
       ]
 }
 EOF
-  source               = "git::https://bitbucket.org/valeri0/ecr.git?ref=1.0.1"
+  source               = "git::https://bitbucket.org/valeri0/ecr.git?ref=1.1.0"
   #source = "/Users/vcrini/Repositories/terraform-modules/ecr"
 }
 module "ecr_mutable" {
-  count  = var.create_ecr != "false" ? 1 : 0
-  name   = formatlist("%s-%s", local.ecr_repositories, "snapshot")
-  policy = <<EOF
+  force_delete = var.force_ecr_delete
+  name         = formatlist("%s-%s", local.ecr_repositories, "snapshot")
+  policy       = <<EOF
 {
     "rules": [
         {
@@ -44,20 +44,21 @@ module "ecr_mutable" {
       ]
 }
 EOF
-  source = "git::https://bitbucket.org/valeri0/ecr.git?ref=1.0.1"
+  source       = "git::https://bitbucket.org/valeri0/ecr.git?ref=1.1.0"
   # source = "/Users/vcrini/Repositories/terraform-modules/ecr"
 }
 module "deploy" {
-  branch_name             = var.branch_name
-  buildspec               = local.buildspec
-  codepipeline_bucket     = var.codepipeline_bucket
-  env_in_repository_name  = var.env_in_repository_name
-  deploy_environment      = var.deploy_environment
-  deploy_template_name    = var.deploy_template_name
-  deployspec              = local.deployspec
-  force_approve           = var.force_approve
-  kms_arn                 = var.kms_arn
-  image                   = "aws/codebuild/amazonlinux2-x86_64-standard:5.0"
+  branch_name            = var.branch_name
+  buildspec              = local.buildspec
+  codepipeline_bucket    = var.codepipeline_bucket
+  env_in_repository_name = var.env_in_repository_name
+  deploy_environment     = var.deploy_environment
+  deploy_template_name   = var.deploy_template_name
+  deployspec             = local.deployspec
+  force_approve          = var.force_approve
+  kms_arn                = var.kms_arn
+  # image                   = "aws/codebuild/amazonlinux2-x86_64-standard:4.0"
+  image                   = "aws/codebuild/standard:5.0"
   poll_for_source_changes = "false"
   repository_name         = local.repository_name
   role_arn_codebuild      = local.role_arn_codebuild

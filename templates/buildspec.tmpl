@@ -10,7 +10,6 @@ env:
     environment: ${environment}
     image_repo: ${image_repo} 
     image_repo_name: ${image_repo_name} 
-    proxy_name: ${proxy_name}
   parameter-store:
     dockerhub_password: "dpl-dockerhub-password"
     ssh_prv_key: "dpl-git-private_b64"
@@ -38,6 +37,7 @@ phases:
           docker pull $app1_repo || true
         fi
       - pip3 install awscli --upgrade --user
+      - aws --version
       - CMD0="aws codeartifact login --tool npm --domain $codeartifact_domain --domain-owner $domain_owner --repository $codeartifact_repository"
       - echo $CMD0
       - exec $CMD0
